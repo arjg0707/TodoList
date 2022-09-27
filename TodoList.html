@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>DBP</title>
+<script>
+  function DelAll(){
+    ol = document.querySelector("#Tasks");
+    while(ol.firstChild){
+      ol.removeChild(ol.lastChild);
+    }
+  }
+  function DelTask(button){
+    li=button.parentElement;
+    li.remove();    
+  }
+  function ComAll(input){
+
+    const li_tasks = document.getElementsByTagName("li");
+   
+    for(var i=0, n=li_tasks.length;i<n;i++) {
+      li_tasks[i].checked = input.checked;
+      li_tasks[i].style.textDecoration= "line-through";
+      
+    }
+  }
+
+  function ComTask(input){
+    li=input.parentElement;
+    if(input.checked){
+      li.style.textDecoration= "line-through";  
+    }
+    else{
+      li.style.textDecoration = "none";
+    }
+  }
+  function AddTask(){    
+    const li = document.createElement("li");
+    const button = document.createElement("button");
+    const input = document.createElement("input");
+    const ol=document.querySelector('#tasks')
+    button.innerHTML = "X";
+    button.setAttribute("onclick", "DelTask(this)");
+    input.setAttribute("type", "checkbox");
+    input.setAttribute("onchange","ComTask(this)")  
+    li.appendChild(input);
+    li.append(document.querySelector('#task').value); 
+    li.appendChild(button);
+    document.querySelector('#Tasks').append(li);
+    document.querySelector('#task').value = "";
+  }
+
+</script>
+
+  </head>
+  <body>
+<h1>Tasks</h1>
+    <form id="new-task">
+        <input id="task" autocomplete="off"
+autofocus placeholder="New Task"
+type="text">
+        <input type="button" onclick="AddTask()" value="Add Todo">
+    </form>
+    <br>
+    <button type="button" onclick="ComAll(this)">Complete All</button>
+    <button type="button" onclick ="DelAll()">Delete All</button>
+    <ol id="Tasks">
+      <li>
+        <input type="checkbox" onchange="ComTask(this)">Tarea 1<button type="button" onclick="DelTask(this)">X</button>
+      </li>
+    </ol>
+  </body>
+</html>
